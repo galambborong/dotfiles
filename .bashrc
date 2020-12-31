@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export BROWSER=brave
+export BROWSER=firefox
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
