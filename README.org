@@ -1,0 +1,28 @@
+#+title: galambborong dotfiles
+#+author: galambborong / peterkeenan
+
+** Intro
+
+This dotfiles repository is mainly here to help me keep my various configs in order and syncronised. But seeing as much of my configs are inspired by publicly available dotfile repos, I figured I'd share mine too. 
+
+** Branches
+
+At present, there is only the single ==main== branch, but in time it'll like consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundent' branch too, where I put any configs which I abandon. 
+
+** Quicklinks within this repository
+
+- [[https://github.com/galambborong/dotfiles/tree/main/.xmonad][Xmonad]]
+- [[https://github.com/galambborong/dotfiles/tree/main/.emacs.d][Emacs]]
+- [[https://github.com/galambborong/dotfiles/tree/main/.config/nvim][Vim]]
+- [[https://github.com/galambborong/dotfiles/tree/main/.config/fish][Fish]]
+- [[https://github.com/galambborong/dotfiles/tree/main/.config/polybar][Polybar]]
+
+** Other configs, not yet linked
+
+*** suckless
+
+I have my own forks of the following three suckless programs. The repos are not public at present, and most of my configs are quite general. (The idea with suckless stuff is that you start with the bare basics and work your way up, so if you're going to use them - give that a go rather than using someone else's fork!)
+
+- *st*: I use a few of patches in this and have a muted colour scheme, etc
+- *dwm*: Other than a few patches, there's not a huge amount of hacking on this - I don't really use dwm anymore
+- *dmenu*: Not much to say on this one, I just use the bog standard dmenu config and prettify it in my Xmonad config
