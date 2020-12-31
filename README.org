@@ -7,7 +7,7 @@ This dotfiles repository is mainly here to help me keep my various configs in or
 
 ** Branches
 
-At present, there is only the single ==main== branch, but in time it'll like consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundent' branch too, where I put any configs which I abandon. 
+At present, there is only the single ```main``` branch, but in time it'll like consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundent' branch too, where I put any configs which I abandon. 
 
 ** Quicklinks within this repository
 
@@ -23,6 +23,6 @@ At present, there is only the single ==main== branch, but in time it'll like con
 
 I have my own forks of the following three suckless programs. The repos are not public at present, and most of my configs are quite general. (The idea with suckless stuff is that you start with the bare basics and work your way up, so if you're going to use them - give that a go rather than using someone else's fork!)
 
-- *st*: I use a few of patches in this and have a muted colour scheme, etc
+- *st*: I use a few patches in this and have a muted colour scheme, etc
 - *dwm*: Other than a few patches, there's not a huge amount of hacking on this - I don't really use dwm anymore
 - *dmenu*: Not much to say on this one, I just use the bog standard dmenu config and prettify it in my Xmonad config
