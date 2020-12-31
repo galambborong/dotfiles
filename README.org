@@ -5,9 +5,13 @@
 
 This dotfiles repository is mainly here to help me keep my various configs in order and syncronised. But seeing as much of my configs are inspired by publicly available dotfile repos, I figured I'd share mine too. 
 
+** Documentation
+
+I eventually plan to have all main configs tangled from an org document (as seen in the Emacs config), where I keep notes/comments for future reference. 
+
 ** Branches
 
-At present, there is only the single ```main``` branch, but in time it'll like consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundent' branch too, where I put any configs which I abandon. 
+At present, there is only the single main branch, but in time it'll like consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundent' branch too, where I put any configs which I abandon. 
 
 ** Quicklinks within this repository
 
