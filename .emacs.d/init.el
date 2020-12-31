@@ -144,9 +144,7 @@
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-agenda-files 
-        '("~/Documents/Org/Todo.org"
-          "~/Documents/Org/SamlingExit.org"
-          "/run/media/pk/Debussy/Dropbox (Samling)/Samling Team Folder/To do/Peter/2020/November.org"))
+        '("~/Documents/Org/Todo.org"))
 
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
@@ -229,7 +227,7 @@
 
 (add-to-list 'exec-path "~/.nvm/versions/node/v14.15.0/bin/node")
 
-;;(use-package magit)
+(use-package magit)
 
 ;;(use-package evil-magit
 ;;  :after magit)
