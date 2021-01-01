@@ -281,7 +281,7 @@ format-charging-underline = #C792EA
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging =  %percentage%%
 format-discharging-underline = #C792EA
-format-discharging-foreground = ${colors.foreground}
+format-discharging-foreground = #C792EA
 format-discharging-background = ${colors.background}
 
 format-full-prefix = " "
@@ -295,7 +295,7 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-foreground = #c7ae25
+ramp-capacity-foreground = #C792EA
 
 animation-charging-0 = 
 animation-charging-1 = 
@@ -370,8 +370,8 @@ type = internal/cpu
 interval = 1
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
-format-prefix = "  "
-format-prefix-foreground = #cd1f3f
+format-prefix = " "
+format-prefix-foreground = #82AAFF
 format-underline = #82AAFF
 
 label-font = 3
@@ -405,7 +405,7 @@ date = " %d-%m-%Y"
 time = %H:%M
 time-alt = %H:%M
 format-prefix = " "
-format-prefix-foreground = #c1941a
+format-prefix-foreground = #FFCB6B
 format-underline = #FFCB6B
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
@@ -615,7 +615,7 @@ label = %percentage_used%%
 
 format = Mem <label>
 format-prefix = "  "
-format-prefix-foreground = #3384d0
+format-prefix-foreground = #C792EA
 format-underline = #C792EA
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
