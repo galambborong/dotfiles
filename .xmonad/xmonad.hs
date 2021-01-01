@@ -61,7 +61,7 @@ myBorderWidth   = 2
 -- "windows key" is usually mod4Mask.
 --
 myModMask = mod4Mask
-myBrowser = "brave"
+myBrowser = "firefox"
 -- myDev = "brave"
 -- myTor = "tor-browser"
 
