@@ -19,7 +19,7 @@ alias vim='nvim'
 alias gs='git status'
 alias gc='git commit -S -a -m'            # NB, this must be followed by a comment
 alias gp='git remote | xargs -L1 git push --all'
-alias config='/usr/bin/git --git-dir=$HOME/Repos/dotfiles/ --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.zdotfiles/ --work-tree=$HOME'
 
 # Python virtual env stuff
 alias act='. ./venv/bin/activate'
