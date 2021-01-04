@@ -9,4 +9,4 @@
   autocrlf = false
   editor = nvim
 [init]
-	defaultBranch = main
+  defaultBranch = main

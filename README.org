@@ -3,7 +3,7 @@
 
 ** Intro
 
-This dotfiles repository is mainly here to help me keep my various configs in order and syncronised. But seeing as much of my configs are inspired by publicly available dotfile repos, I figured I'd share mine too. 
+This dotfile repository exists to help keep my various configs in order and synchronised. But seeing as much of my configs are inspired by other publicly available dotfile repos, I figured I'd share mine too. 
 
 ** Documentation
 
@@ -11,7 +11,7 @@ I eventually plan to have all main configs tangled from an org document (as seen
 
 ** Branches
 
-At present, there is only the single =main= branch, but in time it'll like consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundent' branch too, where I put any configs which I abandon. 
+At present, there is only the single =main= branch, but in time it'll likely consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundant' branch too, where I put any configs which I abandon. 
 
 ** Quicklinks within this repository
 
@@ -30,3 +30,75 @@ I have my own forks of the following three suckless programs. The repos are not 
 - *st*: I use a few patches in this and have a muted colour scheme, etc
 - *dwm*: Other than a few patches, there's not a huge amount of hacking on this - I don't really use dwm anymore
 - *dmenu*: Not much to say on this one, I just use the bog standard dmenu config and prettify it in my Xmonad config
+
+** Ref-guide for putting this repo to use
+
+Easiest way to manage dotfiles is using a =bare= git repository. See the [[https://www.atlassian.com/git/tutorials/dotfiles][original Atlassian document]] on how to do this. Below is a consolidation of this, mainly so all information is to hand. There are other methods for managing dotfiles (GNU Stow, for example), but this seems simplest.
+
+*** Starting fresh
+
+Create the bare repo:
+
+#+begin_src sh
+
+git init --bare $HOME/.zdotfiles
+
+#+end_src
+
+Set an alias to define the git repository and the working tree and add this to the shell's config file:
+
+#+begin_src sh
+
+alias config='/usr/bin/git --git-dir=$HOME/.zdotfiles/ --work-tree=$HOME'
+
+#+end_src
+
+Set git not to show untracked files:
+
+#+begin_src sh
+
+config config --local status.showUntrackedFiles no
+
+#+end_src
+
+When working in this particular git repository, substitute the =git= command with =config=. Examples below. Note: Don't use =config add .=; it'll add /everything/ in the =$HOME= directory. Always be explicit in what to track.
+
+
+#+begin_src sh
+
+config status
+config add <file> 
+config commit -m "Message"
+config push
+
+#+end_src
+
+*** Cloning to another machine
+
+Run the =config= alias from above in the shell. (If it's not already part of the shell's config, don't bother adding it. It /should/ be in the config repo being cloned - so will replace any existing config files imminently anyways.)
+
+Clone the remote repository into a =bare= repo:
+
+#+begin_src sh
+
+git clone --bare git@domain.com:usr/repo.git $HOME/.zdotfiles
+
+#+end_src
+
+Checkout the content from the =bare= repo into the =$HOME= directory:
+
+#+begin_src sh
+
+config checkout
+
+#+end_src
+
+If any of the cloned configs already exist on the system, git will abort. When this happens, it'll itemise all conflicts in an error message. Back them up and/or delete them, run the command again to populate the =$HOME= directory with the configs. 
+
+Again, add the following configuration to the =bare= repo to only show tracked files:
+
+#+begin_src sh
+
+config config --local status.showUntrackedFiles no
+
+#+end_src
