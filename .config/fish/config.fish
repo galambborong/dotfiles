@@ -16,7 +16,7 @@
 
 set VISUAL nvim
 set EDITOR nvim
-set BROWSER firefox
+set BROWSER brave
 
 
 ### VI MODE ###
