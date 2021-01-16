@@ -19,6 +19,7 @@ alias vim='nvim'
 alias gs='git status'
 alias gc='git commit -S -a -m'            # NB, this must be followed by a comment
 alias gp='git remote | xargs -L1 git push --all'
+alias gpf='git pull --ff'
 alias config='/usr/bin/git --git-dir=$HOME/.zdotfiles/ --work-tree=$HOME'
 
 # Python virtual env stuff

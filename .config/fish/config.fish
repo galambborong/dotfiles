@@ -22,12 +22,14 @@ set BROWSER brave
 ### VI MODE ###
 
 function fish_user_key_bindings
-	fish_vi_key_bindings
+    fish_vi_key_bindings
 end
 
 ### NVM ###
 
-# load_nvm
+# NB: I've found this adds lag, so it's easier not to load it by default,
+# but just when needed
+# load_nvm 
 
 ### AUTOCOMPLETE AND HIGHLIGHTING ###
 
@@ -43,8 +45,9 @@ alias vim='nvim'
 
 # Git related aliases
 alias gs='git status'
-alias gc='git commit -S -a -m'            # NB, this must be followed by a comment
+alias gc='git commit -S -a -m' # NB, this must be followed by a comment
 alias gp='git remote | xargs -L1 git push --all'
+alias gpf='git pull --ff'
 alias config='/usr/bin/git --git-dir=$HOME/.zdotfiles/ --work-tree=$HOME'
 
 # Python virtual env stuff
