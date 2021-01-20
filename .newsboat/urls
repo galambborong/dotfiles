@@ -1,0 +1,35 @@
+    "---CODING STUFF---"
+https://www.kernel.org/feeds/all.atom.xml "~Linux Kernel"
+https://www.archlinux.org/feeds/news/ "~Arch Linux"
+https://suckless.org/atom.xml "~Suckless"
+
+    "---LINUX FLOSS BLOGS---"
+https://lunduke.com/index.xml "~Brian Lunduke's journal"
+https://secluded.site/posts/index.xml "~Amolith - Secluded Site"
+https://www.distrotube.com/videos/index.xml "~DistroTube's RSS feed on his website"
+https://lukesmith.xyz/rss.xml "~Luke Smith's blog"
+https://chriswere.uk/collabs.rss.txt "~Chris Were's webpage"
+https://blog.debiania.in.ua/feeds/english.rss "~Minoru"
+http://blog.peterkeenan.co.uk/rss.xml "~PK temp"
+https://www.linode.com/blog/feed/ "~Linode blog"
+
+    "---CODING BLOGS---"
+https://www.hanselman.com/blog/feed/rss "~Scott Hanselman"
+https://codeblog.jonskeet.uk/feed/ "~Jon Skeet"
+
+    "---LINUX AND FLOSS YT CHANNELS---"
+https://videos.lukesmith.xyz/feeds/videos.xml "~Luke Smith's PeerTube"
+https://invidious.snopyta.org/feed/channel/UCVls1GmFKf6WlTraIb_IaJg "~DistroTube"
+https://invidious.snopyta.org/feed/channel/UCJYVW4HVrMWpUvvsjPQc8-Q "~DorianDotSlash"
+https://invidious.snopyta.org/feed/channel/UCg6gPGh8HU2U01vaFCAsvmQ "~Chris Titus Tech"
+
+    "---MUSIC CHANNELS ON YT---"
+https://invidious.snopyta.org/feed/channel/UCiawGYzxoZSPDLReSFETqeQ "~Listening in"
+https://invidious.snopyta.org/feed/channel/UC371NSy0KQCYGkx4YVtZhyQ "~Simon Smith"
+
+    "---TWITTER FEEDS---"
+
+    "---ACADEMIC INTERESTS---"
+https://www.bsecs.org.uk/feed/ "~BSECS main feed"
+https://www.bsecs.org.uk/criticks-reviews/feed/ "~BSECS Criticks"
+https://www.cambridge.org/core/rss/product/id/72D4515362DF3356A3516CE24F95320D "~ECM"
