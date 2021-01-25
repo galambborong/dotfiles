@@ -2,6 +2,7 @@
   name = Peter Keenan
   email = keenan@posteo.net
   signingkey = ACA9105CC06D3E93
+	username = galambborong
 [commit]
   gpgsign = true
 [core]
