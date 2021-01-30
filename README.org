@@ -9,6 +9,10 @@ This dotfile repository exists to help keep my various configs in order and sync
 
 I eventually plan to have all main configs tangled from an org document (as seen in the Emacs config), where I keep notes/comments for future reference. 
 
+*** Dependencies
+
+The gtk configurations will not work without installing =ark-gtk-theme=
+
 ** Branches
 
 At present, there is only the single =main= branch, but in time it'll likely consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundant' branch too, where I put any configs which I abandon. 
