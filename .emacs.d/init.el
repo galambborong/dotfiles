@@ -24,21 +24,25 @@
 (setq visible-bell t)
 
 (set-face-attribute 'default nil :font "Mononoki Nerd Font" :height 100)
+(set-face-attribute 'fixed-pitch nil :font "Mononoki Nerd Font" :height 100)
+
+;;(set-face-attribute 'variable-pitch nil :font <"FONT"> :height 100 :weight 'regular)
 
 (defun pk/org-font-setup ()
 
   (dolist (face '((org-level-1 . 1.3)
-		  (org-level-2 . 1.1)
-		  (org-level-3 . 1.05)
-		  (org-level-4 . 1.0)
+		  (org-level-2 . 1.2)
+		  (org-level-3 . 1.1)
+		  (org-level-4 . 1.1)
 		  (org-level-5 . 1.1)
 		  (org-level-6 . 1.1)
 		  (org-level-7 . 1.1)
 		  (org-level-8 . 1.1)))
    (set-face-attribute (car face) nil :font "Mononoki Nerd Font" :weight 'bold :height (cdr face))))
 
-(use-package doom-modeline)
+(use-package doom-modeline
    :init (doom-modeline-mode 1)
+   :custom ((doom-modeline-height 15)))
 
 (use-package all-the-icons)
 
@@ -310,3 +314,16 @@
   :ensure t
   :after (rjsx-mode)
   :hook (rjsx-mode . prettier-js-mode))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" default)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

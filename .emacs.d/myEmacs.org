@@ -31,7 +31,6 @@ Initialise use-package in non-Linux OSs
 #+end_src
 
 * UI Configuration
-
 ** Basics
 
 This gets rid of the various menus, toolbars and the welcome screen.
@@ -51,12 +50,17 @@ This gets rid of the various menus, toolbars and the welcome screen.
 
 ** Font Configuration
 
-Set the main font:
+Setting the main default font and fixed width to Mononoki Nerd Font:
 
 #+begin_src emacs-lisp 
-
 (set-face-attribute 'default nil :font "Mononoki Nerd Font" :height 100)
+(set-face-attribute 'fixed-pitch nil :font "Mononoki Nerd Font" :height 100)
+#+end_src
 
+Setting a variable width font:
+
+#+begin_src emacs-lisp
+;;(set-face-attribute 'variable-pitch nil :font <"FONT"> :height 100 :weight 'regular)
 #+end_src
 
 And the org-mode headers:
@@ -66,9 +70,9 @@ And the org-mode headers:
 (defun pk/org-font-setup ()
 
   (dolist (face '((org-level-1 . 1.3)
-		  (org-level-2 . 1.1)
-		  (org-level-3 . 1.05)
-		  (org-level-4 . 1.0)
+		  (org-level-2 . 1.2)
+		  (org-level-3 . 1.1)
+		  (org-level-4 . 1.1)
 		  (org-level-5 . 1.1)
 		  (org-level-6 . 1.1)
 		  (org-level-7 . 1.1)
@@ -79,12 +83,13 @@ And the org-mode headers:
 
 ** Theme, Modeline and Icons 
 
-Remember: on new machines run `M-x all-the-icons-install-fonts`, otherwise the icons won't work.
+Remember: on new machines run =M-x all-the-icons-install-fonts=, otherwise the icons won't work.
 
 #+begin_src emacs-lisp
 
- (use-package doom-modeline)
+ (use-package doom-modeline
    :init (doom-modeline-mode 1)
+   :custom ((doom-modeline-height 15)))
 
 (use-package all-the-icons)
 
@@ -242,7 +247,6 @@ Set ESC to quit
 #+end_src
 
 * Org-mode
-
 ** Org-mode setup
 
 #+begin_src emacs-lisp
