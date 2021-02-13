@@ -287,6 +287,7 @@ myStartupHook = do
   spawnOnce "picom &"
   spawnOnce "~/.config/polybar/launch.sh"
   spawnOnce "xsetroot -cursor_name left_ptr"
+  spawnOnce "xmodmap ~/.Xmodmap"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
