@@ -28,6 +28,8 @@
 
 ;;(set-face-attribute 'variable-pitch nil :font <"FONT"> :height 100 :weight 'regular)
 
+(setq default-frame-alist '((font . "Mononoki Nerd Font")))
+
 (defun pk/org-font-setup ()
 
   (dolist (face '((org-level-1 . 1.3)
@@ -48,6 +50,8 @@
 
 (use-package doom-themes
   :init (load-theme 'doom-one t))
+
+(setq doom-modeline-icon t)
 
 (column-number-mode)
 (global-display-line-numbers-mode t)

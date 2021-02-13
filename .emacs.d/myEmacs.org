@@ -63,6 +63,12 @@ Setting a variable width font:
 ;;(set-face-attribute 'variable-pitch nil :font <"FONT"> :height 100 :weight 'regular)
 #+end_src
 
+Setting the default font for a frame started from the daemon
+
+#+begin_src emacs-lisp
+(setq default-frame-alist '((font . "Mononoki Nerd Font")))
+#+end_src
+
 And the org-mode headers:
 
 #+begin_src emacs-lisp
@@ -83,7 +89,7 @@ And the org-mode headers:
 
 ** Theme, Modeline and Icons 
 
-Remember: on new machines run =M-x all-the-icons-install-fonts=, otherwise the icons won't work.
+*Remember:* on new machines run =M-x all-the-icons-install-fonts=, otherwise the icons won't work.
 
 #+begin_src emacs-lisp
 
@@ -96,6 +102,12 @@ Remember: on new machines run =M-x all-the-icons-install-fonts=, otherwise the i
 (use-package doom-themes
   :init (load-theme 'doom-one t))
 
+#+end_src
+
+When starting a frame from the daemon, icons aren't loaded by default.
+
+#+begin_src emacs-lisp
+(setq doom-modeline-icon t)
 #+end_src
 
 ** Line and column numbering
@@ -570,10 +582,8 @@ Forge will require a token being set up at GitHub.
 ** Prettier
 
 #+begin_src emacs-lisp
-
 (use-package prettier-js
   :ensure t
   :after (rjsx-mode)
   :hook (rjsx-mode . prettier-js-mode))
-
 #+end_src
