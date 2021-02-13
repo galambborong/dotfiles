@@ -20,7 +20,7 @@ At present, there is the single =main= branch, but in time it'll likely consist 
 * Quicklinks within this repository
 
 - [[https://github.com/galambborong/dotfiles/blob/main/.xmonad/myXMonad.org][XMonad]]
-- [[https://github.com/galambborong/dotfiles/tree/main/.emacs.d][Emacs]]
+- [[https://github.com/galambborong/dotfiles/blob/main/.emacs.d/myEmacs.org][Emacs]]
 - [[https://github.com/galambborong/dotfiles/tree/main/.config/nvim][Vim]]
 - [[https://github.com/galambborong/dotfiles/tree/main/.config/fish][Fish]]
 - [[https://github.com/galambborong/dotfiles/tree/main/.config/polybar][Polybar]]
