@@ -100,8 +100,8 @@ myFocusedBorderColor = "#ff0000"
 | =mod-h=           | shrink master area                 |                   |
 | =mod-l=           | expand master area                 |                   |
 | =mod-t=           | push window back into tiling       |                   |
-| =mod-,=           | rotate windows into master area    |                   |
-| =mod-.=           | rotate windows out of master area  |                   |
+| =mod-comma=       | rotate windows into master area    |                   |
+| =mod-period=      | rotate windows out of master area  |                   |
 
 *** Session bindings
 
@@ -109,7 +109,6 @@ myFocusedBorderColor = "#ff0000"
 |---------------+----------------+------------------|
 | =mod-shift-q= | quit XMonad    |                  |
 | =mod-q=       | restart XMonad | recompiles first |
-|               |                |                  |
 
 ** Keybindings
 
@@ -189,7 +188,6 @@ The available layouts. Each layout is separated by =|||=, which denotes layout c
 
 #+begin_src haskell
 myBaseConfig = desktopConfig
--- window manipulations
 myManageHook =
   composeAll . concat $
     [ [isDialog --> doCenterFloat],
@@ -199,7 +197,6 @@ myManageHook =
       [resource =? i --> doIgnore | i <- myIgnores]
     ]
   where
-    -- doShiftAndGo = doF . liftM2 (.) W.greedyView W.shift
     myCFloats = ["Galculator", "feh", "mpv"]
     myTFloats = ["Downloads", "Save As..."]
     myRFloats = []

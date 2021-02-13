@@ -109,7 +109,6 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) =
     ]
 
 myBaseConfig = desktopConfig
--- window manipulations
 myManageHook =
   composeAll . concat $
     [ [isDialog --> doCenterFloat],
@@ -119,7 +118,6 @@ myManageHook =
       [resource =? i --> doIgnore | i <- myIgnores]
     ]
   where
-    -- doShiftAndGo = doF . liftM2 (.) W.greedyView W.shift
     myCFloats = ["Galculator", "feh", "mpv"]
     myTFloats = ["Downloads", "Save As..."]
     myRFloats = []
