@@ -1,3 +1,19 @@
+#+title: My XMonad Configuration
+#+author: Peter Keenan / galambborong
+#+property: header-args:haskell :tangle xmonad.hs
+
+* A BRIEF OVERVIEW OF THIS CONFIGURATION
+** Sources
+
+I've been using XMonad exclusively for a while. My very first set-up took this [[https://wiki.haskell.org/Xmonad/Config_archive][template configuration]] and customised as appropriate, following the documentation. I briefly ran ArcoLinux with [[https://github.com/arcolinux/arcolinux-xmonad-polybar/blob/master/etc/skel/.xmonad/xmonad.hs][their flavour of XMonad]] and liked some elements of their configuration. (On the whole, it was too heavily configured for my liking, though.)
+
+This config brings 'the best of both worlds' together to my taste.   
+
+My initial customisation used XMobar, but I now use Polybar instead.
+
+* IMPORTS
+
+#+begin_src haskell
 import qualified Data.Map as M
 import Data.Monoid
 import System.Exit
@@ -18,7 +34,11 @@ import XMonad.Layout.ThreeColumns
 import qualified XMonad.StackSet as W
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
+#+end_src
 
+* VARIABLES
+
+#+begin_src haskell
 myTerminal :: String
 myTerminal = "st"
 
@@ -45,7 +65,11 @@ myNormalBorderColor = "#dddddd"
 
 myFocusedBorderColor :: String
 myFocusedBorderColor = "#ff0000"
+#+end_src
 
+* KEYBINDINGS
+
+#+begin_src haskell
 myKeys conf@(XConfig {XMonad.modMask = modm}) =
   M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf),
@@ -119,7 +143,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0 ..],
           (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
       ]
+#+end_src
 
+* MOUSE BINDINGS
+
+#+begin_src haskell
 myMouseBindings (XConfig {XMonad.modMask = modm}) =
   M.fromList $
     -- mod-button1, Set the window to floating mode and move by dragging
@@ -139,7 +167,15 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) =
         )
       )
     ]
+#+end_src
 
+* LAYOUTS
+
+You can specify and transform your layouts by modifying these values. If you change layout bindings be sure to use =mod-shift-space= after restarting (with =mod-q=) to reset your layout state to the new defaults, as xmonad preserves your old layout settings by default.
+
+The available layouts. Each layout is separated by =|||=, which denotes layout choice.
+
+#+begin_src haskell
 myBaseConfig = desktopConfig
 -- window manipulations
 myManageHook =
@@ -163,11 +199,29 @@ myLayout = spacingRaw True (Border 0 5 5 5) True (Border 5 5 5 5) True $ avoidSt
     nmaster = 1
     delta = 3 / 100
     tiled_ratio = 1 / 2
+#+end_src
+* EVENT HANDLING, STATUS BARS AND LOGGING
+** Event Handling
 
+Defines a custom handler function for X events. The function should return (All True) if the default handler is to be run afterwards. To combine event hooks use =mappend= or =mconcat= from =Data.Monoid=.
+
+#+begin_src haskell
 myEventHook = mempty
+#+end_src
 
+** Status bars and Logging
+
+Perform an arbitrary action on each internal state change of X event. See =XMonad.Hooks.DynamicLog= extension for examples.
+
+#+begin_src haskell
 myLogHook = return ()
+#+end_src
 
+* START-UP HOOK
+
+Perform an arbtirary action each time XMonad starts or is restarted with =mod-q=. Used by, e.g., =XMonad.Layout.PerWorkspace= to initialise per-workspace layout choices.
+
+#+begin_src haskell
 myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "nitrogen --restore &"
@@ -175,10 +229,23 @@ myStartupHook = do
   spawnOnce "~/.config/polybar/launch.sh"
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "xmodmap ~/.Xmodmap"
+#+end_src
 
+* MAIN
+** Main initialisation
+
+Entrypoint for XMonad with the defaults
+
+#+begin_src haskell
 main = do
   xmonad . ewmh $ docks defaults
+#+end_src
 
+** Defaults
+
+A structure containing the configuration settings
+
+#+begin_src haskell
 defaults =
   def
     { -- simple stuff
@@ -200,3 +267,5 @@ defaults =
       logHook = myLogHook,
       startupHook = myStartupHook
     }
+#+end_src
+
