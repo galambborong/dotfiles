@@ -52,7 +52,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf),
       ((modm, xK_b), spawn myBrowser),
       ((modm, xK_c), spawn "codium"),
-      ((modm, xK_x), spawn "tor-browser"),
+      ((modm, xK_x), spawn "emacsclient -c"),
       ((modm, xK_p), spawn "dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'Mononoki Nerd Font:pixelsize=14'"),
       ((modm, xK_f), spawn "pcmanfm"),
 
@@ -140,6 +140,7 @@ myStartupHook = do
   spawnOnce "picom &"
   spawnOnce "~/.config/polybar/launch.sh"
   spawnOnce "xsetroot -cursor_name left_ptr"
+  spawnOnce "emacs --daemon"
   spawnOnce "xmodmap ~/.Xmodmap"
 
 main = do

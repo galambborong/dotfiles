@@ -70,7 +70,9 @@ myFocusedBorderColor = "#ff0000"
 * KEYBINDINGS
 ** Glossary
 
-*Note:* =mod= is the super key, often called the Windows key.
+*Notes:* 
+1. =mod= is the super key, often called the Windows key.
+2. I haven't yet got the fonts and icons issue sorted when spawning an Emacs session from the daemon - something to revisit.
 
 *** Spawn instances 
 
@@ -79,7 +81,7 @@ myFocusedBorderColor = "#ff0000"
 | =mod-shift-enter= | terminal    |                             |
 | =mod-b=           | browser     |                             |
 | =mod-c=           | codium      |                             |
-| =mod-x=           | tor browser |                             |
+| =mod-x=           | emacs frame | provided daemon is running  |
 | =mod-p=           | dmenu       | pop down, not a full window |
 | =mod-f=           | pcmanfm     | add to a variable           |
 
@@ -119,7 +121,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf),
       ((modm, xK_b), spawn myBrowser),
       ((modm, xK_c), spawn "codium"),
-      ((modm, xK_x), spawn "tor-browser"),
+      ((modm, xK_x), spawn "emacsclient -c"),
       ((modm, xK_p), spawn "dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'Mononoki Nerd Font:pixelsize=14'"),
       ((modm, xK_f), spawn "pcmanfm"),
 
@@ -237,6 +239,7 @@ myStartupHook = do
   spawnOnce "picom &"
   spawnOnce "~/.config/polybar/launch.sh"
   spawnOnce "xsetroot -cursor_name left_ptr"
+  spawnOnce "emacs --daemon"
   spawnOnce "xmodmap ~/.Xmodmap"
 #+end_src
 
