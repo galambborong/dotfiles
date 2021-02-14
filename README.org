@@ -7,7 +7,7 @@ This dotfile repository exists to help keep my various configs in order and sync
 
 ** My set-up
 
-I bring the elements found in this repository together on a fairly minimal *Arch Linux* installation. *XMonad* is a /great/ dynamically tiling window manager, written and run in Haskell. I find Arch Linux and XMonad are an excellent and /stable/ pairing. Almost everything in this set-up is /keyboard-driven/, particularly my XMonad config. 
+I bring the elements found in this repository together on a fairly minimal *Arch Linux* installation. *XMonad* is a great dynamically tiling window manager, written and run in Haskell. I find Arch Linux and XMonad are an excellent and stable pairing. Almost everything in this set-up is keyboard-driven, particularly my XMonad config. 
 
 I currently run *Polybar* as the task bar for XMonad. I run *Fish* as my main shell, but do maintain a parallel *Bash* configuration too, for where POSIX-compliance is a must. I use the Vi-bindings in Fish. 
 
