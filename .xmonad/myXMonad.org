@@ -7,9 +7,11 @@
 
 I've been using XMonad exclusively for a while. My very first set-up took this [[https://wiki.haskell.org/Xmonad/Config_archive][template configuration]] and customised as appropriate, following the documentation. I briefly ran ArcoLinux with [[https://github.com/arcolinux/arcolinux-xmonad-polybar/blob/master/etc/skel/.xmonad/xmonad.hs][their flavour of XMonad]] and liked some elements of their configuration. (On the whole, it was too heavily configured for my liking, though.)
 
-This config brings 'the best of both worlds' together to my taste.   
+This config brings 'the best of both worlds' together to my taste. My initial customisation used XMobar, but I now use Polybar instead.
 
-My initial customisation used XMobar, but I now use Polybar instead.
+** Tangling
+
+This is a tangled Emacs org document. If you do not use Emacs, download and edit the [[https://github.com/galambborong/dotfiles/blob/main/.xmonad/xmonad.hs][=xmonad.hs= directly]]. 
 
 * IMPORTS
 
@@ -230,17 +232,25 @@ myLogHook = return ()
 
 * START-UP HOOK
 
-Perform an arbtirary action each time XMonad starts or is restarted with =mod-q=. Used by, e.g., =XMonad.Layout.PerWorkspace= to initialise per-workspace layout choices.
+Rather than clutter up my =xinitrc= file, I like to run various initialisations when XMonad is started/restarted. 
+
++ Nitrogen sets the wallpaper
++ Picom is the compositor, preventing screen tearing etc
++ Polybar is self-explanatory
++ =xsetroot= sets the cursor as a pointer, rather than the default "X" we usually get in Arch Linux
++ Finally, we initialise the Emacs daemon
+
+My =.Xmodmap= file remaps my =ctrl= key to the =caps lock=. The remap works fine when invoked explicitly in a terminal - but, for whatever reason, it does not work when invoked either here or in the =xinitrc= file. Something to look into. 
 
 #+begin_src haskell
-myStartupHook :: X ()
-myStartupHook = do
-  spawnOnce "nitrogen --restore &"
-  spawnOnce "picom &"
-  spawnOnce "~/.config/polybar/launch.sh"
-  spawnOnce "xsetroot -cursor_name left_ptr"
-  spawnOnce "emacs --daemon"
-  spawnOnce "xmodmap ~/.Xmodmap"
+  myStartupHook :: X ()
+  myStartupHook = do
+    spawnOnce "nitrogen --restore &"
+    spawnOnce "picom &"
+    -- spawnOnce "xmodmap ~/.Xmodmap"
+    spawnOnce "~/.config/polybar/launch.sh"
+    spawnOnce "xsetroot -cursor_name left_ptr"
+    spawnOnce "emacs --daemon"
 #+end_src
 
 * MAIN

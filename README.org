@@ -5,9 +5,19 @@
 
 This dotfile repository exists to help keep my various configs in order and synchronised. But as much of my config is inspired by other publicly available dotfile repos, I figured I'd share mine too. 
 
+** My set-up
+
+I bring the elements found in this repository together on a fairly minimal *Arch Linux* installation. *XMonad* is a /great/ dynamically tiling window manager, written and run in Haskell. I find Arch Linux and XMonad are an excellent and /stable/ pairing. Almost everything in this set-up is /keyboard-driven/, particularly my XMonad config. 
+
+I currently run *Polybar* as the task bar for XMonad. I run *Fish* as my main shell, but do maintain a parallel *Bash* configuration too, for where POSIX-compliance is a must. I use the Vi-bindings in Fish. 
+
+Since autumn 2020, I've been more and more drawn to *Emacs*, and as such Emacs features increasingly more heavily as part of my main set-up and is gradually replacing Vim and VSCode. Again, I use the so-called /EVIL/ (ie, Vim) keybindings in Emacs. 
+
+Although Emacs is taking centre-stage, I still use *Vim* from time to time, and keep a semi-up-to-date configuration of it. I use *NeoVim*, but this config can easily run on standard Vim if preferred. 
+
 ** Documentation
 
-I eventually plan to have all main configs tangled from an org document (as seen in the Emacs and XMonad configs), where I keep notes/comments for future reference. 
+I eventually plan to have all main configs tangled from well-documented org documents (as seen in the Emacs and XMonad configs), where I keep notes/comments for future reference. This is an ongoing process.
 
 ** Dependencies
 

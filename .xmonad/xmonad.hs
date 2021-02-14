@@ -138,10 +138,10 @@ myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "nitrogen --restore &"
   spawnOnce "picom &"
+  -- spawnOnce "xmodmap ~/.Xmodmap"
   spawnOnce "~/.config/polybar/launch.sh"
   spawnOnce "xsetroot -cursor_name left_ptr"
   spawnOnce "emacs --daemon"
-  spawnOnce "xmodmap ~/.Xmodmap"
 
 main = do
   xmonad . ewmh $ docks defaults
