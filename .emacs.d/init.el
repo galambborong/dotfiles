@@ -31,7 +31,7 @@
 (setq default-frame-alist '((font . "Mononoki Nerd Font")))
 
 (defun pk/org-font-setup ()
-
+  (set-face-attribute 'org-document-title nil :font "Mononoki Nerd Font" :weight 'bold :height 1.5)
   (dolist (face '((org-level-1 . 1.3)
 		  (org-level-2 . 1.2)
 		  (org-level-3 . 1.1)
@@ -128,6 +128,28 @@
   :after evil
   :config
   (evil-collection-init))
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-open
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "feh")
+                                ("mkv" . "mpv"))))
 
 (use-package general)
 (general-define-key

@@ -2,10 +2,26 @@
 #+author: Peter Keenan / galambborong
 #+property: header-args:emacs-lisp :tangle /home/pk/.emacs.d/init.el
 
+* About this configuration
+** Aims
+
+The long-term aim for this Emacs configuration is to build a development environment which I can use on a constant, daily basis. It's not quite there yet - some things work well, but others are inconsistent, and some key features have not yet been introduced. But it's a work in progress. 
+
+In the meantime, I use org-mode *constantly*. It is my primary note-taking method. As I keep increasing my use of Emacs, I am more regularly using Dired, Magit, and numerous other excellent parts of the Emacs eco-system. 
+
+At this stage, I can't see myself going down the mu4e route, but I will likely add things like elfeed and mastodon.el soon.
+
+As with most of my customised configs, I use Vi keybindings ('evil', in Emacs). 
+
+** Sources
+
+I am still relatively new to Emacs and clearly have no first-hand knowledge of E-Lisp. However, I am constantly learning and discovering features or ways to implement certain things. From May onwards I plan to invest some time into learning some basic E-Lisp, purely so I am less reliant on copying snippets from various sources.
+
+Coincidentally, around the time that I started looking into Emacs, [[https://github.com/daviwil/][daviwil]] began his excellent [[https://github.com/daviwil/emacs-from-scratch][Emacs from Scratch]] series. The configuration below is influenced by this series - which I would strongly recommend taking the time to go through. It's very detailed, educational. There is another useful and interesting video series about hacking Emacs by [[https://lbry.tv/@lukewh:3][lukewh]].
+
 * Package initialisations
 
 #+begin_src emacs-lisp
-
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -15,28 +31,24 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-
 #+end_src
 
 Initialise use-package in non-Linux OSs
 
 #+begin_src emacs-lisp
-
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
 #+end_src
 
 * UI Configuration
 ** Basics
 
-This gets rid of the various menus, toolbars and the welcome screen.
+This gets rid of the various menus, toolbars and the welcome screen. I plan to implement my own splash screen with quicklinks to recent and commonly accessed files. (Similar to Doom Emacs, I suppose.)
 
 #+begin_src emacs-lisp
-
 (setq inhibit-startup-message t) 
 
 (scroll-bar-mode -1)
@@ -45,7 +57,6 @@ This gets rid of the various menus, toolbars and the welcome screen.
 (set-fringe-mode 10)
 (menu-bar-mode -1)
 (setq visible-bell t)
-
 #+end_src
 
 ** Font Configuration
@@ -57,7 +68,7 @@ Setting the main default font and fixed width to Mononoki Nerd Font:
 (set-face-attribute 'fixed-pitch nil :font "Mononoki Nerd Font" :height 100)
 #+end_src
 
-Setting a variable width font:
+Setting a variable width font, primarily for org-mode. I'm undecided about this, so for now it's a placeholder:
 
 #+begin_src emacs-lisp
 ;;(set-face-attribute 'variable-pitch nil :font <"FONT"> :height 100 :weight 'regular)
@@ -69,12 +80,11 @@ Setting the default font for a frame started from the daemon
 (setq default-frame-alist '((font . "Mononoki Nerd Font")))
 #+end_src
 
-And the org-mode headers:
+The following controls the sizes for the org-mode headers, including the title at the top of the page. It'd be good to see if there's a similar control for other meta tags.
 
 #+begin_src emacs-lisp
-
 (defun pk/org-font-setup ()
-
+  (set-face-attribute 'org-document-title nil :font "Mononoki Nerd Font" :weight 'bold :height 1.5)
   (dolist (face '((org-level-1 . 1.3)
 		  (org-level-2 . 1.2)
 		  (org-level-3 . 1.1)
@@ -84,7 +94,6 @@ And the org-mode headers:
 		  (org-level-7 . 1.1)
 		  (org-level-8 . 1.1)))
    (set-face-attribute (car face) nil :font "Mononoki Nerd Font" :weight 'bold :height (cdr face))))
-
 #+end_src
 
 ** Theme, Modeline and Icons 
@@ -110,7 +119,7 @@ When starting a frame from the daemon, icons aren't loaded by default.
 (setq doom-modeline-icon t)
 #+end_src
 
-** Line and column numbering
+*** Line and column numbering
 
 *** TODO Remember to look up the function for setting relative line numbers.
 
@@ -155,7 +164,6 @@ Ivy is a completion framework.
 ** Counsel
 
 #+begin_src emacs-lisp
-
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
          ("C-x b" . counsel-ibuffer)
@@ -164,13 +172,11 @@ Ivy is a completion framework.
          ("C-r" . 'counsel-minibuffer-history))
   :config
   (setq ivy-initial-inputs-alist nil)) ;; Don't start searches with ^ !
-
 #+end_src
 
 ** Helpful
 
 #+begin_src emacs-lisp
-
 (use-package helpful
   :custom
   (counsel-describe-function-function #'helpful-callable)
@@ -180,19 +186,16 @@ Ivy is a completion framework.
   ([remap describe-command] . helpful-command)
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
-
 #+end_src
 
 ** Which-key
 
 #+begin_src emacs-lisp
-
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
-
 #+end_src
 
 ** Other
@@ -209,7 +212,6 @@ Ivy is a completion framework.
 ** Evil
 
 #+begin_src emacs-lisp
-
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -232,7 +234,34 @@ Ivy is a completion framework.
   :after evil
   :config
   (evil-collection-init))
+#+end_src
 
+** Dired
+
+A few changes to the default Dired configurations, mainly to allow navigation through directory trees using Vim keys. Also, brings icons into Dired too. 
+
+#+begin_src emacs-lisp
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-open
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "feh")
+                                ("mkv" . "mpv"))))
 #+end_src
 
 ** General
@@ -240,11 +269,9 @@ Ivy is a completion framework.
 For custom keybindings.
 
 #+begin_src emacs-lisp
-
 (use-package general)
 (general-define-key
  "C-M-j" 'counsel-switch-buffer)
-
 #+end_src
 
 ** Other
@@ -252,16 +279,13 @@ For custom keybindings.
 Set ESC to quit
 
 #+begin_src emacs-lisp
-
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
 #+end_src
 
 * Org-mode
 ** Org-mode setup
 
 #+begin_src emacs-lisp
-
 (defun pk/org-mode-setup ()
   (org-indent-mode)
 ;;  (variable-pitch-mode 1)
@@ -269,7 +293,6 @@ Set ESC to quit
   (visual-line-mode 1)
   (pk/org-font-setup)
   (setq evil-auto-indent nil))
-
 #+end_src
 
 ** Org-mode main
