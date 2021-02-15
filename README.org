@@ -1,29 +1,42 @@
-#+title: galambborong dotfiles
+#+title: My dotfiles
 #+author: galambborong / peterkeenan
 
-** Intro
+* Intro
 
-This dotfile repository exists to help keep my various configs in order and synchronised. But seeing as much of my configs are inspired by other publicly available dotfile repos, I figured I'd share mine too. 
+This dotfile repository exists to help keep my various configs in order and synchronised. But as much of my config is inspired by other publicly available dotfile repos, I figured I'd share mine too. 
+
+** My set-up
+
+I bring the elements found in this repository together on a fairly minimal *Arch Linux* installation. *XMonad* is a great dynamically tiling window manager, written and run in Haskell. I find Arch Linux and XMonad are an excellent and stable pairing. Almost everything in this set-up is keyboard-driven, particularly my XMonad config. 
+
+I currently run *Polybar* as the task bar for XMonad. I run *Fish* as my main shell, but do maintain a parallel *Bash* configuration too, for where POSIX-compliance is a must. I use the Vi-bindings in Fish. 
+
+Since autumn 2020, I've been more and more drawn to *Emacs*, and as such Emacs features increasingly more heavily as part of my main set-up and is gradually replacing Vim and VSCode. Again, I use the so-called /EVIL/ (ie, Vim) keybindings in Emacs. 
+
+Although Emacs is taking centre-stage, I still use *Vim* from time to time, and keep a semi-up-to-date configuration of it. I use *NeoVim*, but this config can easily run on standard Vim if preferred. 
 
 ** Documentation
 
-I eventually plan to have all main configs tangled from an org document (as seen in the Emacs config), where I keep notes/comments for future reference. 
+I eventually plan to have all main configs tangled from well-documented org documents (as seen in the Emacs and XMonad configs), where I keep notes/comments for future reference. This is an ongoing process.
 
-** Branches
+** Dependencies
 
-At present, there is only the single =main= branch, but in time it'll likely consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundant' branch too, where I put any configs which I abandon. 
+The gtk configurations will not work without installing =ark-gtk-theme=
 
-** Quicklinks within this repository
+* Branches
 
-- [[https://github.com/galambborong/dotfiles/tree/main/.xmonad][Xmonad]]
-- [[https://github.com/galambborong/dotfiles/tree/main/.emacs.d][Emacs]]
+At present, there is the single =main= branch, but in time it'll likely consist of a branch per system (as I want some configs different on my laptop compared with my desktop, for example). There will probably be a 'redundant' branch too, where I put any configs which I abandon. 
+
+* Quicklinks within this repository
+
+- [[https://github.com/galambborong/dotfiles/blob/main/.xmonad/myXMonad.org][XMonad]]
+- [[https://github.com/galambborong/dotfiles/blob/main/.emacs.d/myEmacs.org][Emacs]]
 - [[https://github.com/galambborong/dotfiles/tree/main/.config/nvim][Vim]]
 - [[https://github.com/galambborong/dotfiles/tree/main/.config/fish][Fish]]
 - [[https://github.com/galambborong/dotfiles/tree/main/.config/polybar][Polybar]]
 
-** Other configs, not yet linked
-
-*** suckless
+* Other configs, not yet linked
+** suckless
 
 I have my own forks of the following three suckless programs. The repos are not public at present, and most of my configs are quite general. (The idea with suckless stuff is that you start with the bare basics and work your way up, so if you're going to use them - give that a go rather than using someone else's fork!)
 
@@ -31,66 +44,53 @@ I have my own forks of the following three suckless programs. The repos are not 
 - *dwm*: Other than a few patches, there's not a huge amount of hacking on this - I don't really use dwm anymore
 - *dmenu*: Not much to say on this one, I just use the bog standard dmenu config and prettify it in my Xmonad config
 
-** Ref-guide for putting this repo to use
+* Putting this repo to use
 
 Easiest way to manage dotfiles is using a =bare= git repository. See the [[https://www.atlassian.com/git/tutorials/dotfiles][original Atlassian document]] on how to do this. Below is a consolidation of this, mainly so all information is to hand. There are other methods for managing dotfiles (GNU Stow, for example), but this seems simplest.
 
-*** Starting fresh
+** Starting fresh
 
 Create the bare repo:
 
 #+begin_src sh
-
 git init --bare $HOME/.zdotfiles
-
 #+end_src
 
 Set an alias to define the git repository and the working tree and add this to the shell's config file:
 
 #+begin_src sh
-
 alias config='/usr/bin/git --git-dir=$HOME/.zdotfiles/ --work-tree=$HOME'
-
 #+end_src
 
 Set git not to show untracked files:
 
 #+begin_src sh
-
 config config --local status.showUntrackedFiles no
-
 #+end_src
 
 When working in this particular git repository, substitute the =git= command with =config=. Examples below. Note: Don't use =config add .=; it'll add /everything/ in the =$HOME= directory. Always be explicit in what to track.
 
-
 #+begin_src sh
-
 config status
 config add <file> 
 config commit -m "Message"
 config push
-
 #+end_src
 
-*** Cloning to another machine
+** Cloning to another machine
 
 Run the =config= alias from above in the shell. (If it's not already part of the shell's config, don't bother adding it. It /should/ be in the config repo being cloned - so will replace any existing config files imminently anyways.)
 
 Clone the remote repository into a =bare= repo:
 
 #+begin_src sh
-
 git clone --bare git@domain.com:usr/repo.git $HOME/.zdotfiles
-
 #+end_src
 
 Checkout the content from the =bare= repo into the =$HOME= directory:
 
 #+begin_src sh
-
 config checkout
-
 #+end_src
 
 If any of the cloned configs already exist on the system, git will abort. When this happens, it'll itemise all conflicts in an error message. Back them up and/or delete them, run the command again to populate the =$HOME= directory with the configs. 
@@ -98,7 +98,5 @@ If any of the cloned configs already exist on the system, git will abort. When t
 Again, add the following configuration to the =bare= repo to only show tracked files:
 
 #+begin_src sh
-
 config config --local status.showUntrackedFiles no
-
 #+end_src

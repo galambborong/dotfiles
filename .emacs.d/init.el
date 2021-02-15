@@ -23,27 +23,35 @@
 (menu-bar-mode -1)
 (setq visible-bell t)
 
-(set-face-attribute 'default nil :font "Mononoki Nerd Font" :height 100)
+(set-face-attribute 'default nil :font "Mononoki Nerd Font" :height 125)
+(set-face-attribute 'fixed-pitch nil :font "Mononoki Nerd Font" :height 100)
+
+;;(set-face-attribute 'variable-pitch nil :font <"FONT"> :height 100 :weight 'regular)
+
+(setq default-frame-alist '((font . "Mononoki Nerd Font")))
 
 (defun pk/org-font-setup ()
-
+  (set-face-attribute 'org-document-title nil :font "Mononoki Nerd Font" :weight 'bold :height 1.5)
   (dolist (face '((org-level-1 . 1.3)
-		  (org-level-2 . 1.1)
-		  (org-level-3 . 1.05)
-		  (org-level-4 . 1.0)
+		  (org-level-2 . 1.2)
+		  (org-level-3 . 1.1)
+		  (org-level-4 . 1.1)
 		  (org-level-5 . 1.1)
 		  (org-level-6 . 1.1)
 		  (org-level-7 . 1.1)
 		  (org-level-8 . 1.1)))
    (set-face-attribute (car face) nil :font "Mononoki Nerd Font" :weight 'bold :height (cdr face))))
 
-(use-package doom-modeline)
+(use-package doom-modeline
    :init (doom-modeline-mode 1)
+   :custom ((doom-modeline-height 15)))
 
 (use-package all-the-icons)
 
 (use-package doom-themes
-  :init (load-theme 'doom-palenight t))
+  :init (load-theme 'doom-one t))
+
+(setq doom-modeline-icon t)
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -121,6 +129,28 @@
   :config
   (evil-collection-init))
 
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-open
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "feh")
+                                ("mkv" . "mpv"))))
+
 (use-package general)
 (general-define-key
  "C-M-j" 'counsel-switch-buffer)
@@ -129,8 +159,8 @@
 
 (defun pk/org-mode-setup ()
   (org-indent-mode)
-;; (variable-pitch-mode 1)
-;; (auto-fill-mode 0)
+;;  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
   (visual-line-mode 1)
   (pk/org-font-setup)
   (setq evil-auto-indent nil))
@@ -159,10 +189,6 @@
 	`(("t" "Tasks / Projects")
         ("tt" "Task" entry (file+olp "~/Documents/Org/Todo.org" "ScratchPad")
              "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1))))
-;; %?\n sets cursor at right place
-;; %U\n sets timestamp
-;; %a\n link to the file/line at which the capture took place
-;; %i\
 
 (use-package org-bullets
   :after org
@@ -182,7 +208,9 @@
  'org-babel-load-languages
  '((emacs-lisp . t)
    (python . t)
-   (js . t)))
+   (js . t)
+   (haskell . t)
+   (C . t)))
 
 (setq org-confirm-babel-evaluate nil)
 
@@ -191,14 +219,16 @@
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 (add-to-list 'org-structure-template-alist '("js" . "src js"))
+(add-to-list 'org-structure-template-alist '("hs" . "src haskell"))
+(add-to-list 'org-structure-template-alist '("cc" . "src C"))
 
 (defun pk/org-babel-tangle-config ()
   (when (string-equal (buffer-file-name)
                       (expand-file-name "~/.emacs.d/myEmacs.org"))
-    (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle))))
+      (let ((org-confirm-babel-evaluate nil))
+        (org-babel-tangle))))
 
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'pk/org-babel-tangle-config)))
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'pk/org-babel-tangle-config)))
 
 (use-package projectile
   :diminish projectile-mode
@@ -257,11 +287,11 @@
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
 
-;;require 'lsp)
-;;require 'lsp-haskell)
+;;(require 'lsp)
+;;(require 'lsp-haskell)
 ;;; Hooks so haskell and literate haskell major modes trigger LSP setup
-;;add-hook 'haskell-mode-hook #'lsp)
-;;add-hook 'haskell-literate-mode-hook #'lsp)
+;;(add-hook 'haskell-mode-hook #'lsp)
+;;(add-hook 'haskell-literate-mode-hook #'lsp)
 
 (use-package lsp-haskell
  :ensure t

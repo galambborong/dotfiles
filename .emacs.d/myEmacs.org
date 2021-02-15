@@ -1,11 +1,27 @@
 #+title: Emacs Configuration
-#+author: Peter Keenan
+#+author: Peter Keenan / galambborong
 #+property: header-args:emacs-lisp :tangle /home/pk/.emacs.d/init.el
+
+* About this configuration
+** Aims
+
+The long-term aim for this Emacs configuration is to build a development environment which I can use on a constant, daily basis. It's not quite there yet - some things work well, but others are inconsistent, and some key features have not yet been introduced. But it's a work in progress. 
+
+In the meantime, I use org-mode *constantly*. It is my primary note-taking method. As I keep increasing my use of Emacs, I am more regularly using Dired, Magit, and numerous other excellent parts of the Emacs eco-system. 
+
+At this stage, I can't see myself going down the mu4e route, but I will likely add things like elfeed and mastodon.el soon.
+
+As with most of my customised configs, I use Vi keybindings ('evil', in Emacs). 
+
+** Sources
+
+I am still relatively new to Emacs and clearly have no first-hand knowledge of E-Lisp. However, I am constantly learning and discovering features or ways to implement certain things. From May onwards I plan to invest some time into learning some basic E-Lisp, purely so I am less reliant on copying snippets from various sources.
+
+Coincidentally, around the time that I started looking into Emacs, [[https://github.com/daviwil/][daviwil]] began his excellent [[https://github.com/daviwil/emacs-from-scratch][Emacs from Scratch]] series. The configuration below is influenced by this series - which I would strongly recommend taking the time to go through. It's very detailed, educational. There is another useful and interesting video series about hacking Emacs by [[https://lbry.tv/@lukewh:3][lukewh]].
 
 * Package initialisations
 
 #+begin_src emacs-lisp
-
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -15,29 +31,24 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-
 #+end_src
 
 Initialise use-package in non-Linux OSs
 
 #+begin_src emacs-lisp
-
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
 #+end_src
 
 * UI Configuration
-
 ** Basics
 
-This gets rid of the various menus, toolbars and the welcome screen.
+This gets rid of the various menus, toolbars and the welcome screen. I plan to implement my own splash screen with quicklinks to recent and commonly accessed files. (Similar to Doom Emacs, I suppose.)
 
 #+begin_src emacs-lisp
-
 (setq inhibit-startup-message t) 
 
 (scroll-bar-mode -1)
@@ -46,54 +57,69 @@ This gets rid of the various menus, toolbars and the welcome screen.
 (set-fringe-mode 10)
 (menu-bar-mode -1)
 (setq visible-bell t)
-
 #+end_src
 
 ** Font Configuration
 
-Set the main font:
+Setting the main default font and fixed width to Mononoki Nerd Font:
 
 #+begin_src emacs-lisp 
-
-(set-face-attribute 'default nil :font "Mononoki Nerd Font" :height 100)
-
+(set-face-attribute 'default nil :font "Mononoki Nerd Font" :height 125)
+(set-face-attribute 'fixed-pitch nil :font "Mononoki Nerd Font" :height 100)
 #+end_src
 
-And the org-mode headers:
+Setting a variable width font, primarily for org-mode. I'm undecided about this, so for now it's a placeholder:
 
 #+begin_src emacs-lisp
+;;(set-face-attribute 'variable-pitch nil :font <"FONT"> :height 100 :weight 'regular)
+#+end_src
 
+Setting the default font for a frame started from the daemon
+
+#+begin_src emacs-lisp
+(setq default-frame-alist '((font . "Mononoki Nerd Font")))
+#+end_src
+
+The following controls the sizes for the org-mode headers, including the title at the top of the page. It'd be good to see if there's a similar control for other meta tags.
+
+#+begin_src emacs-lisp
 (defun pk/org-font-setup ()
-
+  (set-face-attribute 'org-document-title nil :font "Mononoki Nerd Font" :weight 'bold :height 1.5)
   (dolist (face '((org-level-1 . 1.3)
-		  (org-level-2 . 1.1)
-		  (org-level-3 . 1.05)
-		  (org-level-4 . 1.0)
+		  (org-level-2 . 1.2)
+		  (org-level-3 . 1.1)
+		  (org-level-4 . 1.1)
 		  (org-level-5 . 1.1)
 		  (org-level-6 . 1.1)
 		  (org-level-7 . 1.1)
 		  (org-level-8 . 1.1)))
    (set-face-attribute (car face) nil :font "Mononoki Nerd Font" :weight 'bold :height (cdr face))))
-
 #+end_src
 
 ** Theme, Modeline and Icons 
 
-Remember: on new machines run `M-x all-the-icons-install-fonts`, otherwise the icons won't work.
+*Remember:* on new machines run =M-x all-the-icons-install-fonts=, otherwise the icons won't work.
 
 #+begin_src emacs-lisp
 
- (use-package doom-modeline)
+ (use-package doom-modeline
    :init (doom-modeline-mode 1)
+   :custom ((doom-modeline-height 15)))
 
 (use-package all-the-icons)
 
 (use-package doom-themes
-  :init (load-theme 'doom-palenight t))
+  :init (load-theme 'doom-one t))
 
 #+end_src
 
-** Line and column numbering
+When starting a frame from the daemon, icons aren't loaded by default.
+
+#+begin_src emacs-lisp
+(setq doom-modeline-icon t)
+#+end_src
+
+*** Line and column numbering
 
 *** TODO Remember to look up the function for setting relative line numbers.
 
@@ -138,7 +164,6 @@ Ivy is a completion framework.
 ** Counsel
 
 #+begin_src emacs-lisp
-
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
          ("C-x b" . counsel-ibuffer)
@@ -147,13 +172,11 @@ Ivy is a completion framework.
          ("C-r" . 'counsel-minibuffer-history))
   :config
   (setq ivy-initial-inputs-alist nil)) ;; Don't start searches with ^ !
-
 #+end_src
 
 ** Helpful
 
 #+begin_src emacs-lisp
-
 (use-package helpful
   :custom
   (counsel-describe-function-function #'helpful-callable)
@@ -163,19 +186,16 @@ Ivy is a completion framework.
   ([remap describe-command] . helpful-command)
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
-
 #+end_src
 
 ** Which-key
 
 #+begin_src emacs-lisp
-
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
-
 #+end_src
 
 ** Other
@@ -189,11 +209,9 @@ Ivy is a completion framework.
 #+end_src
 
 * Keybindings
-
 ** Evil
 
 #+begin_src emacs-lisp
-
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -216,7 +234,34 @@ Ivy is a completion framework.
   :after evil
   :config
   (evil-collection-init))
+#+end_src
 
+** Dired
+
+A few changes to the default Dired configurations, mainly to allow navigation through directory trees using Vim keys. Also, brings icons into Dired too. 
+
+#+begin_src emacs-lisp
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-open
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "feh")
+                                ("mkv" . "mpv"))))
 #+end_src
 
 ** General
@@ -224,11 +269,9 @@ Ivy is a completion framework.
 For custom keybindings.
 
 #+begin_src emacs-lisp
-
 (use-package general)
 (general-define-key
  "C-M-j" 'counsel-switch-buffer)
-
 #+end_src
 
 ** Other
@@ -236,25 +279,20 @@ For custom keybindings.
 Set ESC to quit
 
 #+begin_src emacs-lisp
-
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
 #+end_src
 
 * Org-mode
-
 ** Org-mode setup
 
 #+begin_src emacs-lisp
-
 (defun pk/org-mode-setup ()
   (org-indent-mode)
-;; (variable-pitch-mode 1)
-;; (auto-fill-mode 0)
+;;  (variable-pitch-mode 1)
+  (auto-fill-mode 0)
   (visual-line-mode 1)
   (pk/org-font-setup)
   (setq evil-auto-indent nil))
-
 #+end_src
 
 ** Org-mode main
@@ -285,12 +323,13 @@ Set ESC to quit
 	`(("t" "Tasks / Projects")
         ("tt" "Task" entry (file+olp "~/Documents/Org/Todo.org" "ScratchPad")
              "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1))))
-;; %?\n sets cursor at right place
-;; %U\n sets timestamp
-;; %a\n link to the file/line at which the capture took place
-;; %i\
 
 #+end_src
+
++ =%?\n= sets the cursor to the right price
++ =%U\n= sets timestamp
++ =%a\n= links to the file/file at which the capture took place
++ =%i\=
 
 ** Org bullets
 
@@ -322,7 +361,7 @@ This centres the main text when in org-mode, so it's not hard left.
 
 ** Org-babel
 
-This enables code to be evaluated within org-mode. Add languages to the list following =org-babel-load-languages=, but check WEBSITE for correct references.
+This enables code to be evaluated within org-mode. Add languages to the list following =org-babel-load-languages=, but check [[https://orgmode.org/manual/Languages.html#Languages][documentation]] for correct references.
 
 #+begin_src emacs-lisp
 
@@ -330,7 +369,9 @@ This enables code to be evaluated within org-mode. Add languages to the list fol
  'org-babel-load-languages
  '((emacs-lisp . t)
    (python . t)
-   (js . t)))
+   (js . t)
+   (haskell . t)
+   (C . t)))
 
 (setq org-confirm-babel-evaluate nil)
 
@@ -345,6 +386,8 @@ Org-tempo allows code-blocks to be autocompleted
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 (add-to-list 'org-structure-template-alist '("js" . "src js"))
+(add-to-list 'org-structure-template-alist '("hs" . "src haskell"))
+(add-to-list 'org-structure-template-alist '("cc" . "src C"))
 
 #+end_src
 
@@ -355,19 +398,14 @@ Auto-configure babel-tangle upon saving of file
 (defun pk/org-babel-tangle-config ()
   (when (string-equal (buffer-file-name)
                       (expand-file-name "~/.emacs.d/myEmacs.org"))
-    (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle))))
+      (let ((org-confirm-babel-evaluate nil))
+        (org-babel-tangle))))
 
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'pk/org-babel-tangle-config)))
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'pk/org-babel-tangle-config)))
 
 #+end_src
 
 * Development
-
-** Language server protocol
-
-
-
 ** Projectile
 
 #+begin_src emacs-lisp
@@ -483,11 +521,11 @@ Forge will require a token being set up at GitHub.
 
 #+begin_src emacs-lisp
 
-;;require 'lsp)
-;;require 'lsp-haskell)
+;;(require 'lsp)
+;;(require 'lsp-haskell)
 ;;; Hooks so haskell and literate haskell major modes trigger LSP setup
-;;add-hook 'haskell-mode-hook #'lsp)
-;;add-hook 'haskell-literate-mode-hook #'lsp)
+;;(add-hook 'haskell-mode-hook #'lsp)
+;;(add-hook 'haskell-literate-mode-hook #'lsp)
 
 (use-package lsp-haskell
  :ensure t
@@ -567,10 +605,8 @@ Forge will require a token being set up at GitHub.
 ** Prettier
 
 #+begin_src emacs-lisp
-
 (use-package prettier-js
   :ensure t
   :after (rjsx-mode)
   :hook (rjsx-mode . prettier-js-mode))
-
 #+end_src

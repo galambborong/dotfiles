@@ -29,7 +29,7 @@ end
 
 # NB: I've found this adds lag, so it's easier not to load it by default,
 # but just when needed
-# load_nvm 
+#load_nvm 
 
 ### AUTOCOMPLETE AND HIGHLIGHTING ###
 
