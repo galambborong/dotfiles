@@ -340,3 +340,16 @@
   :ensure t
   :after (rjsx-mode)
   :hook (rjsx-mode . prettier-js-mode))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(dired-open all-the-icons-dired dired-single yasnippet which-key visual-fill-column use-package typescript-mode rjsx-mode rainbow-delimiters prettier-js org-bullets lsp-ui lsp-treemacs lsp-ivy lsp-haskell ivy-rich helpful general flycheck exec-path-from-shell evil-nerd-commenter evil-magit evil-collection doom-themes doom-modeline counsel-projectile company-box command-log-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -18,6 +18,14 @@ set VISUAL nvim
 set EDITOR nvim
 set BROWSER brave
 
+### PATH ###
+
+## Path entry for Rust-related tools:
+## - cargo
+## - rustc
+## - rustfmt
+## - rustup
+set -gx PATH $PATH $HOME/.cargo/bin
 
 ### VI MODE ###
 
@@ -33,11 +41,11 @@ end
 
 ### AUTOCOMPLETE AND HIGHLIGHTING ###
 
-set fish_color_normal brcyan
-set fish_color_autosuggestion '#7d7d7d'
-set fish_color_command brcyan
-set fish_color_error '#ff6c6b'
-set fish_color_param brcyan
+#set fish_color_normal brcyan
+#set fish_color_autosuggestion '#7d7d7d'
+#set fish_color_command brcyan
+#set fish_color_error '#ff6c6b'
+#set fish_color_param brcyan
 
 
 # General aliases
