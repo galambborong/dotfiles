@@ -18,6 +18,7 @@ set VISUAL nvim
 set EDITOR nvim
 set BROWSER brave
 
+set -gx PATH $PATH $HOME/.cargo/bin
 
 ### VI MODE ###
 

@@ -42,7 +42,7 @@ import XMonad.Util.SpawnOnce
 
 #+begin_src haskell
 myTerminal :: String
-myTerminal = "st"
+myTerminal = "alacritty"
 
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
