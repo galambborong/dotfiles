@@ -20,7 +20,7 @@ import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
 myTerminal :: String
-myTerminal = "st"
+myTerminal = "alacritty"
 
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
