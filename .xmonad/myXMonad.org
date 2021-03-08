@@ -246,7 +246,7 @@ My =.Xmodmap= file remaps my =ctrl= key to the =caps lock=. The remap works fine
   myStartupHook :: X ()
   myStartupHook = do
     spawnOnce "nitrogen --restore &"
-    spawnOnce "picom &"
+    spawnOnce "picom --experimental-backends &"
     -- spawnOnce "xmodmap ~/.Xmodmap"
     spawnOnce "~/.config/polybar/launch.sh"
     spawnOnce "xsetroot -cursor_name left_ptr"

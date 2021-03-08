@@ -137,7 +137,7 @@ myLogHook = return ()
 myStartupHook :: X ()
 myStartupHook = do
   spawnOnce "nitrogen --restore &"
-  spawnOnce "picom &"
+  spawnOnce "picom --experimental-backends &"
   -- spawnOnce "xmodmap ~/.Xmodmap"
   spawnOnce "~/.config/polybar/launch.sh"
   spawnOnce "xsetroot -cursor_name left_ptr"
